@@ -23,7 +23,7 @@ jobs:
         run: |
           MODIFIED_MODULES=$(git diff --name-only origin/main -- . | awk 'BEGIN {FS="/"} NF > 2 && !m[$2]++ {print $2}')
           
-          [ -z "$MODIFIED_MODULES" ] && { echo "No modified modules found"; exit 1; }
+          [ -z "$MODIFIED_MODULES" ] && { echo "No modified modules found"; exit 0; }
 
           for MODULE in $MODIFIED_MODULES
           do
@@ -38,16 +38,16 @@ jobs:
 
           exit 0
         working-directory: modules
-      # - name: test
-      #   run: |
-      #     MODIFIED_MODULES=$(git diff --name-only origin/main -- . | awk 'BEGIN {FS="/"} NF > 2 && !m[$2]++ {print $2}')
+      - name: test
+        run: |
+          MODIFIED_MODULES=$(git diff --name-only origin/main -- . | awk 'BEGIN {FS="/"} NF > 2 && !m[$2]++ {print $2}')
             
-      #     [ -z "$MODIFIED_MODULES" ] && { echo "No modified modules found"; exit 1; }
+          [ -z "$MODIFIED_MODULES" ] && { echo "No modified modules found"; exit 0; }
 
-      #     for MODULE in $MODIFIED_MODULES
-      #     do
-      #       cd $MODULE
-      #       go test -v ./...
-      #       cd ..
-      #     done
-      #   working_directory: ./modules
+          for MODULE in $MODIFIED_MODULES
+          do
+            cd $MODULE
+            go test -v ./...
+            cd ..
+          done
+        working_directory: modules
