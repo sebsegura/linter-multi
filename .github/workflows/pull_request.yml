@@ -25,19 +25,8 @@ jobs:
           
           [ -z "$MODIFIED_MODULES" ] && { echo "No modified modules found"; exit 1; }
 
-          for MODULE in $MODIFIED_MODULES
-          do
-            cd $MODULE
-            $(go env GOPATH)/bin/golangci-lint run --config ../../.golangci.yml
-            if [[ $? != 0 ]]; then
-                echo "Linting failed for $MODULE"
-                exit 1
-            fi
-            cd ..
-          done
-
           exit 0
-        working_directory: ./modules
+        working_directory: modules
       # - name: test
       #   run: |
       #     MODIFIED_MODULES=$(git diff --name-only origin/main -- . | awk 'BEGIN {FS="/"} NF > 2 && !m[$2]++ {print $2}')
