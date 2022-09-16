@@ -46,7 +46,7 @@ jobs:
           done
 
           exit 0
-        working-directory: project/modules
+        working-directory: modules
       - name: test
         run: |
           MODIFIED_MODULES=$(git diff --name-only origin/main -- . | awk 'BEGIN {FS="/"} NF > 2 && !m[$2]++ {print $2}')
@@ -59,4 +59,4 @@ jobs:
             go test -v ./...
             cd ..
           done
-        working-directory: project/modules
+        working-directory: modules
