@@ -19,8 +19,12 @@ jobs:
       - name: Display branch
         run: echo ${{ github.head_ref }}
 
-      - name: Clone repo
-        run: git clone -b "${{ github.head_ref }}" "git@github.com:sebsegura/linter-multi.git" project
+      # - name: Clone repo
+      #   run: git clone -b "${{ github.head_ref }}" "git@github.com:sebsegura/linter-multi.git" project
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: Install golangci-lint
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.49.0
