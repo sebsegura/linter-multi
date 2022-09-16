@@ -1,7 +1,8 @@
 M = $(shell printf "\033[34;1m▶\033[0m")
+MODULE=bar
 
 lint: lint-check-deps
-	$(info $(M) running linter...)
+	$(info $(M) running linter on $(MODULE) module...)
 	@golangci-lint run ./... --config ../../.golangci.yml
 
 lint-check-deps:

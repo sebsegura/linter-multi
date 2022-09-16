@@ -1,0 +1,22 @@
+#!/bin/sh
+
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+
+cd modules
+
+MODIFIED_MODULES=$(git diff --name-only origin/main -- . | awk 'BEGIN {FS="/"} NF > 2 && !m[$2]++ {print $2}')
+
+for MODULE in $MODIFIED_MODULES
+do
+    cd $MODULE
+    make test
+    if [[ $? != 0 ]]; then
+        printf "${RED}Tests failed! ${NORMAL}Please fix tests before push.\n"
+        exit 1
+    fi
+    cd ..
+done
+
+printf "${GREEN}Tests passed! ${NORMAL}Continuing to push.\n"
+exit 0
