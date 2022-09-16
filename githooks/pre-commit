@@ -1,5 +1,6 @@
 #!/bin/sh
 
+NORMAL=$(tput sgr0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 
