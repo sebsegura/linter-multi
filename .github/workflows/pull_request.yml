@@ -50,4 +50,4 @@ jobs:
             go test -v ./...
             cd ..
           done
-        working_directory: modules
+        working-directory: modules
