@@ -17,10 +17,10 @@ jobs:
       - uses: nelonoel/branch-name@v1.0.1
 
       - name: Display branch
-        run: echo $BRANCH_NAME
+        run: echo ${{ github.head_ref }}
 
       - name: Clone repo
-        run: git clone -b "$BRANCH_NAME" "git@github.com:sebsegura/linter-multi.git" project
+        run: git clone -b "${{ github.head_ref }}" "git@github.com:sebsegura/linter-multi.git" project
 
       - name: Install golangci-lint
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.49.0
